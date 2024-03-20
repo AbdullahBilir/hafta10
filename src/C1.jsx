@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 function C1() {
   const [sayac, setSayac] = useState(0);
-  const [baglantı, setbaglantı] = useState(navigator.online);
+  const [baglantı, setBaglantı] = useState(navigator.onLine);
 
   useEffect(() => {
     function pencereDeğişti(e) {
@@ -18,12 +18,14 @@ function C1() {
   }, []);
 
   useEffect(() => {
-    const surekliİslem = setInterval(() => {}, 1000);
+    const surekliİslem = setInterval(() => {
+      setBaglantı(navigator.onLine);
+    }, 1000);
 
     return () => {
       clearInterval(surekliİslem);
     };
-  });
+  }, []);
 
   return (
     <>
@@ -38,7 +40,8 @@ function C1() {
           {sayac}
         </button>
       </div>
-      {baglantı && (
+
+      {!baglantı && (
         <div className="alert alert-danger p-3 position-fixed">
           bAĞLANTI YOK
         </div>
